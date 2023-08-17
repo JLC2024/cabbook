@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Almost Done</title>
+</head>
+<body>
+	<style>
+		*{
+		  background-color: white;	
+     
+       margin: 0; padding: 0;
+				box-sizing: border-box;
+				text-transform:capitalize;
+				text-decoration: none;
+				
+				font-family: arial;
+			}
+			
+			body{
+				overflow-x: hidden;
+				background: #0000FF;
+       			 padding: 5px;
+			}
+			.opening2{
+				border-style: solid;
+				padding-right: 150px;
+				margin-bottom:45px;
+          		text-align: center;
+				  }
+			
+		
+			.button-container {
+				color:#0000FF;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+			.button{
+				color: white;
+       			background-color: #0000FF;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+			.logo img{
+				width: 10%;
+				height:10%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 10px;
+      		  	float: left;
+      		  
+			}
+
+	</style>
+	<div class="logo">
+		<img src="img/logo.jpg" alt="TA Logo">
+	</div>
+<div class="opening2">
+<h1>Almost Done!</h1>
+<br>
+<br>
+<h2>Please Provide Payment Below</h2>
+<h3>You will not be charged until your ride is complete and the receipt will be sent to your email.</h3>
+</div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+   
+    <div id="paypal-button-container"></div>
+    <script>
+      paypal.Buttons({
+       
+        createOrder() {
+          return fetch("/my-server/create-paypal-order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+       
+            body: JSON.stringify({
+              cart: [
+                {
+                  sku: "YOUR_PRODUCT_STOCK_KEEPING_UNIT",
+                  quantity: "YOUR_PRODUCT_QUANTITY",
+                },
+              ],
+            }),
+          })
+          .then((response) => response.json())
+          .then((order) => order.id);
+        },
+       
+        onApprove(data) {
+          return fetch("/my-server/capture-paypal-order", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              orderID: data.orderID
+            })
+          })
+          .then((response) => response.json())
+          .then((orderData) => {
+          
+            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+            const transaction = orderData.purchase_units[0].payments.captures[0];
+            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+          
+          });
+        }
+      }).render('#paypal-button-container');
+    </script>
+    <div class="container">
+    <a href="success">
+        <button class="button"> I have Completed Payment</button>
+    </a>
+</div>
+  </body>
+</html>
+
+

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Distances btn two cities App</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+<style>
+    
+	#googleMap {
+  	width: 80%;
+  	height: 400px;
+ 	 margin: 10px auto;
+	}
+	#output {
+ 	 text-align: center;
+  	font-size: 2em;
+  	margin: 20px auto;
+	}
+	body{
+				overflow-x: hidden;
+				background: white;
+        		padding: 5px;
+			}
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+            
+			}
+			
+			
+			.pagetitle {
+				text-align: center;
+				padding-bottom: 10px;
+			}
+			.button-container {
+				color:#0000FF;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+                .button-container2 {
+				color: #0000FF;
+                background-color: white;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+
+			.button{
+				color: white;
+       			 background-color: #0000FF;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+
+			.logo img{
+				width: 10%;
+				height:10%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 10px;
+			}
+			
+			.container2{
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: nowrap;
+				padding:0px 0;
+			}
+
+			.card{
+         		border-style: solid;
+				height: 550px;
+				width: 280px;
+				position: static;
+				margin: 30px;
+			}
+			
+			.card img{
+         		border-style: dashed;
+				width: 125%;
+				height: 60%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 50px;
+                padding-right: 40px;
+			}
+			
+			.card .info{
+				text-align: center;
+				line-height: 25px;
+			}
+			
+			.card .info h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			
+			}
+	
+			.card .info .price{
+				font-size: 15px;
+				color: #333;
+				letter-spacing: 1px;
+				text-align: center;
+			}
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+			}
+</style>
+<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/53/14/common.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/53/14/util.js"></script>
+</head>
+<body>
+
+    <div class="logo">
+		<img src="img/logo.jpg" alt="TA Logo">
+	</div>
+	<h1 class="pagetitle">Welcome to Travel Assured's Cab Booking Service<br> Lets get you on the road!</h1>
+<h2 class="pagetitle">Select Your Destination and Cab</h2>
+<br><br>
+<br><br>
+  <strong><hr></strong>
+  <br>
+
+	
+    <div class="container">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="from"></label>
+                <input type="text" id="from" placeholder="Origin" class="form-control">
+
+            </div>
+            <div class="form-group">
+
+                <label for="to"></label>
+                <input type="text" id="to" placeholder="Destination" class="form-control">
+
+            </div>
+
+        </form>
+
+        <div class="form-group">
+            <button class="btn btn-info btn-lg" style="background-color:#0000FF;" onclick="calcRoute();">Calculate</button>
+        </div>
+    </div>
+    <div class="container-fluid">
+        <div id="output">
+
+        </div>
+        <div id="googleMap">
+
+        </div>
+    </div>
+
+    <br><br>
+    <div class="formtitle">
+        <h2>Calculate My Fare</h2>
+    </div>
+    <div id="fareOutput">
+ <form id="fareForm" class="form-horizontal">
+    <div class="container">
+        <label class="formtitle">Enter Distance From Map Above</label>
+        <input type="text" id="miles" name="miles" placeholder="--miles" class="form-control">
+
+    </div>
+    <div class="container">
+        <label class="formtitle">Enter Fare From Desired Cab Below</label>
+        <input type="text" id="rate" name="rate" placeholder="0.00" class="form-control">
+    </div> 
+
+    <br>
+    <div class="container">
+        <button class="btn btn-info btn-lg" style="background-color:#0000FF;" onclick="calcRate();">Calculate Fare</button>
+    </div>
+
+</div>
+
+</form>
+ 
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDCpxpqmabbDqQzhhOGeSRp5B5N4gDjtFw&amp;libraries=places"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>
+var input1 = document.getElementById("from");
+var autocomplete1 = new google.maps.places.Autocomplete(input1);
+
+var input2 = document.getElementById("to");
+var autocomplete2 = new google.maps.places.Autocomplete(input2);
+
+var selectedFrom = "";
+var selectedTo = "";
+var calculatedFare = 0;
+
+var myLatLng = { lat: 34.052, lng: -118.243 };
+var mapOptions = {
+  center: myLatLng,
+  zoom: 7,
+  mapTypeId: google.maps.MapTypeId.ROADMAP,
+};
+
+
+var map = new google.maps.Map(document.getElementById("googleMap"), mapOptions);
+
+
+
+var directionsService = new google.maps.DirectionsService();
+
+
+var directionsDisplay = new google.maps.DirectionsRenderer();
+
+
+directionsDisplay.setMap(map);
+
+
+function calcRoute() {
+ 
+  var request = {
+    origin: document.getElementById("from").value,
+    destination: document.getElementById("to").value,
+    travelMode: google.maps.TravelMode.DRIVING, 
+    unitSystem: google.maps.UnitSystem.IMPERIAL,
+  };
+
+  
+  directionsService.route(request, function (result, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+    
+      const output = document.querySelector("#output");
+      output.innerHTML =
+        "<div class='alert-info'>From: " +
+        document.getElementById("from").value +
+        ".<br />To: " +
+        document.getElementById("to").value +
+        ".<br /> Driving distance <i class='fas fa-road'></i> : " +
+        result.routes[0].legs[0].distance.text +
+        ".<br />Duration <i class='fas fa-hourglass-start'></i> : " +
+        result.routes[0].legs[0].duration.text +
+        ".</div>";
+
+   
+      directionsDisplay.setDirections(result);
+    } else {
+    
+      directionsDisplay.setDirections({ routes: [] });
+     
+      map.setCenter(myLatLng);
+
+     
+      output.innerHTML =
+        "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i> Could not retrieve driving distance.</div>";
+    }
+  });
+  
+}
+function calcRate() {
+  
+    var distance = parseFloat(document.getElementById("miles").value);
+    var fareRate = parseFloat(document.getElementById("rate").value);
+
+   
+    var fare = fareRate * distance;
+
+    
+    const fareOutput = document.querySelector("#fareOutput");
+    
+    fareOutput.innerHTML = "<div class='alert-info'> Total Fare: $" + fare.toFixed(2) + ".</div>";
+
+}
+
+    </script>
+
+		<div class = "container2">
+		<div class="card">
+		    <img src="img/camry.jpg" alt="Toyota Camry">
+		    
+		    <div class="info">
+		        <h2>Toyota Camry</h2>
+		        
+		        <strong class="price">$0.75 Per Mile</strong>
+		        <br>
+		        <strong class="price">Seats Up To 4</strong>
+		        <br>
+		        <strong class="price">Non-luxury</strong>
+		        <br>
+		        <strong class="price">Pets Allowed</strong>
+		        
+		    </div>
+		</div>
+		
+		    <div class="card">
+		        <img src="img/vw.jpg" alt="VW Minivan">
+		    
+		        <div class="info">
+		            <h2>VW Minivan</h2>
+		            
+		            <strong class="price">$2.00 Per Mile</strong>
+		            <br>
+		            <strong class="price">Seats Up To 8</strong>
+		            <br>
+		            <strong class="price">Non-luxury</strong>
+		            <br>
+		            <strong class="price">Pets Allowed</strong>
+		    </div>
+		</div>
+		
+		    <div class="card">
+		        <img src="img/cadillac.jpg" alt="Cadillac CT6">
+		    
+		        <div class="info">
+		            <h2>Cadillac CT6</h2>
+		        
+		            <strong class="price">$5.75 Per Mile</strong>
+		            <br>
+		            <strong class="price">Seats Up To 3</strong>
+		            <br>
+		            <strong class="price">Luxury</strong>
+		            <br>
+		            <strong class="price">No Pets Allowed</strong>
+		        </div>
+		</div>
+		
+		    <div class="card">
+		        <img src="img/limo.jpg" alt="Limousine">
+		        
+		        <div class="info">
+		            <h2>Limousine</h2>
+		            
+		            <strong class="price">$7.50 Per Mile</strong>
+		            <br>
+		            <strong class="price">Seats Up To 6</strong>
+		            <br>
+		            <strong class="price">Luxury</strong>
+		            <br>
+		            <strong class="price">No Pets Allowed</strong>
+		        </div>
+		</div>
+		</div>	
+		 <div class="container">
+		    <a href="welcome">
+		        <button class="btn btn-info btn-lg" style="background-color:#0000FF;">Continue</button>
+		    </a>
+		</div>
+
+
+</body>
+</html>

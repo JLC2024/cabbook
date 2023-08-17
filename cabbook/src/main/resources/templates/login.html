@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+	<style>
+		*{
+		  		background-color: white;	
+      	 		margin: 0; padding: 0;
+				box-sizing: border-box;
+				text-transform:capitalize;
+				text-decoration: none;
+				font-family: arial;
+			}	
+			body{
+				overflow-x: hidden;
+				background: #0000FF;
+       			 padding: 5px;
+			}
+				.form{
+				  padding-top: 30px;
+				  
+			}			
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+			}		
+			.pagetitle {
+				text-align: center;
+				padding-bottom: 40px;
+			}
+			.button-container {
+				color:#0000FF;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+			.button{
+				color: white;
+       			background-color: #0000FF;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+			.logo img{
+				width: 10%;
+				height:10%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 10px;
+      		  
+			}
+
+	</style>
+	<div class="logo">
+		<img src="img/logo.jpg" alt="TA Logo">
+	</div>
+	<H1 class="pagetitle">Please Login</H1>
+
+	<div>
+	<form class="form" action="/login-user" method="post">
+		<div>
+			<label for="username">Username</label>
+			<input type="text" id="username" name="username" required>
+		</div>
+		<br>
+		<div>
+			<label for="password">Password</label>
+			<input type="password" id="password" name="password" required>
+		</div>
+		<div>
+			<br>
+			<input class="button" type="submit" value="login">
+		</div>	
+	</form>
+	</div>
+
+	
+</body>
+</html>

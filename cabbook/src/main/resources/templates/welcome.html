@@ -1,0 +1,177 @@
+<head>
+    <meta charset="utf-8">
+    <title>Distance</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  
+	<style>
+   
+			#googleMap {
+			  width: 80%;
+			  height: 400px;
+			  margin: 10px auto;
+			}
+			#output {
+			  text-align: center;
+			  font-size: 2em;
+			  margin: 20px auto;
+			}
+			body{
+				overflow-x: hidden;
+				background: white;
+        		padding: 5px;
+			}
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+                padding-left: 50px;
+			}	
+			.pagetitle {
+				text-align: center;
+				padding-bottom: 40px;
+			}
+			.button-container {
+				color:#0000FF;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+           .button-container2 {
+				color: #0000FF;
+                background-color: white;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+
+			.button{
+				color: white;
+       			 background-color: #0000FF;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+			.logo img{
+				width: 10%;
+				height:10%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 10px;
+			}		
+			.container2{
+				min-height: 100vh;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-wrap: nowrap;
+				padding:0px 0;
+			}
+			.card{
+         		border-style: solid;
+				height: 550px;
+				width: 280px;
+				position: static;
+				margin: 30px;
+			}	
+			.card img{
+         		border-style: dashed;
+				width: 125%;
+				height: 60%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 50px;
+                padding-right: 40px;
+			}	
+			.card .info{
+				text-align: center;
+				line-height: 25px;
+			}		
+			.card .info h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			
+			}
+			.card .info .price{
+				font-size: 15px;
+				color: #333;
+				letter-spacing: 1px;
+				text-align: center;
+			}
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+			}
+	</style>
+<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/53/14/common.js"></script>
+<script type="text/javascript" charset="UTF-8" src="https://maps.googleapis.com/maps-api-v3/api/js/53/14/util.js"></script>
+</head>
+<body>
+		<div class="logo">
+			<img src="img/logo.jpg" alt="TA Logo">
+		</div>
+	<h1 class="pagetitle">Please Enter The Following Details</h1>
+	<br><br>
+	<br><br>
+	  <strong><hr></strong>
+	  <br>
+
+	<form class="form" action="/booked" method="post">	
+		
+			<div class="formtitle">
+			<h2>Pick Up Time</h2>
+            </div>
+            <div class="container">
+			  <input type="text" aria-label="pickuptime" id="pickuptime" name="pickuptime" class="form-control" placeholder="0:00 AM/PM" style="text-align: center;">
+			  </div>
+	
+		<br><br>
+		
+			<div class="formtitle">
+			<h2>Passenger Name</h2>
+            </div>
+            <div class="container">
+			  <input type="text" aria-label="passegername" id="passengername" name="passengername" class="form-control" placeholder="First Name Last Name" style="text-align: center;">
+			</div>
+		
+			
+		<br><br>
+		
+		<div class="formtitle">
+			<h2>Number of Passengers</h2>
+		</div>	
+			<div class="container">
+			  <input type="text" aria-label="passengercount" id="passengercount" name="passengercount" class="form-control" placeholder="1-8" style="text-align: center;">
+			  </div>
+			  
+		<div class="formtitle">
+    	<h2>Select Your Cab</h2>
+		</div>
+		
+		    <div class="button-container2"> 
+		    <select name="cabtype">
+		       <option value="CAMRY">Toyota Camry</option>
+		        <option value="MINIVAN">VW Minivan</option>
+		        <option value="CADILLAC">Cadillac CT6</option>
+		        <option value="LIMOUSINE">Limousine</option>
+		        </select>
+		    </div>
+		</div>
+		<br><br>
+		<div class="button-container">
+		    <button class="button" type="submit" value="submit">Book My Cab</button>
+		    </div>
+	</form>
+
+
+</body>
+</html>

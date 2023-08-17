@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Register</title>
+</head>
+<body>
+	<style>
+		*{
+		  		background-color: white;	
+      	 		margin: 0; padding: 0;
+				box-sizing: border-box;
+				text-transform:capitalize;
+				text-decoration: none;
+				font-family: arial;
+			}		
+			body{
+				overflow-x: hidden;
+				background: #0000FF;
+       			 padding: 5px;
+			}
+			.gif img{
+				  float: left;
+				  margin-left: 80px;
+				  width: 50%;
+				  height: 300px;
+				  border-style: solid;
+				}
+				.form{
+				  padding-top: 30px;
+				  text-align: center;
+				  
+			}		
+			.formtitle h2{
+				color:#0000FF;
+				padding-top: 0px;
+				padding-bottom: 10px;
+			}
+			.opening{
+				  border-style: solid;
+				  padding-right: 150px;
+				  margin-bottom:30px;
+				  }
+			.formtitle{
+				text-align: center;
+				line-height: 25px;
+				}			
+			.pagetitle {
+				text-align: center;
+				padding-bottom: 40px;
+			}
+			.button-container {
+				color:#0000FF;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				}
+			.button{
+				color: white;
+       			background-color: #0000FF;
+				padding-top: 10px;
+				padding-bottom: 10px;
+				text-align: center;
+			}
+			.logo img{
+				float: left;
+				width: 10%;
+				height:10%;
+				margin: 20px;
+				object-fit: relative;
+      		  	padding-top: 10px;
+      		  
+			}
+
+	</style>
+	
+	<div class="logo">
+		<img src="img/logo.jpg" alt="TA Logo">
+	</div>
+	<div class="opening">
+	<h1 class="pagetitle">Not a Member? Not a Problem!</h1>
+	<h2 class="pagetitle">Please fill out the below form to register</h2>
+	</div>
+	<div class="gif">
+		<img src="https://i.pinimg.com/originals/c8/2c/8c/c82c8c4ff9352c4d2e559c35f21719ad.gif"> 
+	<form  class="form" action="/register-user" method="post">
+		  <div>
+		    <label for="firstname">First Name</label>
+		    <input type="text" class="form-control" id="firstname" name="firstname" required>
+		  </div>
+		  <br>
+		 <div>
+		    <label for="lastname">Last Name</label>
+		    <input type="text" class="form-control" id="lastname" name="lastname" required>
+		  </div>
+			<br>
+		   <div>
+		    <label for="username">Username</label>
+		    <input type="text" class="form-control" id="username" name="username" required>
+		  </div>
+		  	<br>
+		   <div>
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" id="password" name="password" required>   
+		  </div>
+		  	<br>
+		  <div>
+		    <label for="email">Email</label>
+		    <input type="email" class="form-control" id="email" name="email" required>
+		  </div>
+		  <br>
+		   <div>
+		    <label for="phone">Phone</label>
+		    <input type="text" class="form-control" id="phone" name="phone" required>
+		  </div>
+		  
+		   <br>
+		 <button type="submit" class="button">Register</button>
+		</form>
+		</div>
+</body>
+</html>
